@@ -1,6 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { SignUpButton } from "@clerk/nextjs";
 import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
+import { NeonIcon } from "./_icons/Neon";
+import { ClerkIcon } from "./_icons/Clerk";
+import { subscriptionTiersInOrder } from "@/data/subscriptionTiers";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function HomePage() {
   return (
@@ -19,7 +29,76 @@ export default function HomePage() {
           </Button>
         </SignUpButton>
       </section>
-      <section></section>
+      <section className='bg-primary text-primary-foreground'>
+        <div className='container py-16 flex flex-col gap-16 px-8 md:px-16'>
+          <h2 className='text-3xl text-center text-balance'>
+            Trusted by the top modern companies
+          </h2>
+          <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-16'>
+            <Link href='https://neon.tech'>
+              <NeonIcon />
+            </Link>
+            <Link href='https://clerk.com'>
+              <ClerkIcon />
+            </Link>
+            <Link href='https://neon.tech'>
+              <NeonIcon />
+            </Link>
+            <Link href='https://clerk.com'>
+              <ClerkIcon />
+            </Link>
+            <Link href='https://neon.tech'>
+              <NeonIcon />
+            </Link>
+            <Link href='https://clerk.com'>
+              <ClerkIcon />
+            </Link>
+            <Link href='https://neon.tech'>
+              <NeonIcon />
+            </Link>
+            <Link href='https://clerk.com'>
+              <ClerkIcon />
+            </Link>
+            <Link href='https://neon.tech'>
+              <NeonIcon />
+            </Link>
+            <Link className='md:max-xl:hidden' href='https://clerk.com'>
+              <ClerkIcon />
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section id='pricing' className='px-8 py-16 bg-accent/5'>
+        <h2 className='text-4xl text-center text-balance font-semibold mb-8'>
+          Pricing software which pays for itself 20x over
+        </h2>
+        <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-screen-xl mx-auto'>
+          {subscriptionTiersInOrder.map((tier) => (
+            <PricingCard key={tier.name} {...tier} />
+          ))}
+        </div>
+      </section>
     </>
+  );
+}
+
+function PricingCard({
+  name,
+  priceInCents,
+  maxNumberOfVisits,
+  maxNumberOfProducts,
+  canRemoveBranding,
+  canAccessAnalytics,
+  canCustomizeBanner,
+}: (typeof subscriptionTiersInOrder)[number]) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>${priceInCents / 100} /mo</CardTitle>
+        <CardDescription>
+          {maxNumberOfVisits} pricing page visits/mo
+        </CardDescription>
+      </CardHeader>
+    </Card>
   );
 }
